@@ -41,9 +41,9 @@
 <body>
   <div class="container">
     <div class="card" id="form-card">
-      <span class="badge">Mate Academy Oy</span>
+      <span class="badge">Mate Football</span>
       <h1>Report a Bug or Request a Feature</h1>
-      <p class="subtitle">Help us improve Mate Football and UpCharge products</p>
+      <p class="subtitle">Help us improve Mate Football</p>
 
       <form id="bug-form" onsubmit="return submitForm(event)">
         <div class="type-row">
@@ -55,18 +55,6 @@
           </div>
         </div>
         <input type="hidden" id="type" value="bug">
-
-        <div class="field">
-          <label for="product">Product</label>
-          <select id="product" required>
-            <option value="">Select product...</option>
-            <option value="Mate Football">Mate Football (matefootball.fi)</option>
-            <option value="UpCharge POS">UpCharge POS Station</option>
-            <option value="UpCharge Business">UpCharge Business Platform</option>
-            <option value="UpCharge IoT">UpCharge IoT Hub</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
 
         <div class="field">
           <label for="title">Title *</label>
@@ -136,13 +124,12 @@
 
       const title = document.getElementById('title').value.trim();
       const description = document.getElementById('description').value.trim();
-      const product = document.getElementById('product').value;
       const email = document.getElementById('email').value.trim();
       const prefix = selectedType === 'bug' ? '[BUG]' : '[FEATURE]';
       const priTag = selectedPriority === 'high' ? ' 🔴' : selectedPriority === 'low' ? ' 🟢' : ' 🟡';
 
       const taskTitle = `${prefix} ${title}${priTag}`;
-      const taskBody = `**Product:** ${product}\n**Type:** ${selectedType}\n**Priority:** ${selectedPriority}\n${email ? '**Reporter:** ' + email + '\n' : ''}\n---\n\n${description}`;
+      const taskBody = `**Type:** ${selectedType}\n**Priority:** ${selectedPriority}\n${email ? '**Reporter:** ' + email + '\n' : ''}\n---\n\n${description}`;
 
       try {
         const resp = await fetch('http://209.38.223.61:3000/rest/tasks', {
