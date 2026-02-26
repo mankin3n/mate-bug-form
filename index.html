@@ -132,17 +132,10 @@
       const taskBody = `**Type:** ${selectedType}\n**Priority:** ${selectedPriority}\n${email ? '**Reporter:** ' + email + '\n' : ''}\n---\n\n${description}`;
 
       try {
-        const resp = await fetch('http://209.38.223.61:3000/rest/tasks', {
+        const resp = await fetch('/api/submit', {
           method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI0Zjg4YzhkZS1hYmZhLTQ0ZjQtOWZiZi1jZjIwOWIxYzNhZGMiLCJ0eXBlIjoiQVBJX0tFWSIsIndvcmtzcGFjZUlkIjoiNGY4OGM4ZGUtYWJmYS00NGY0LTlmYmYtY2YyMDliMWMzYWRjIiwiaWF0IjoxNzcyMDIxMDQ4LCJleHAiOjQ5MjU2MjEwNDQsImp0aSI6IjBiYzE2NWJhLWI1YzAtNDVlNi1iZGJmLTg4MTVlYzVjYWY3MiJ9.O3wtZMYA5fPjNkEFwC9VzV5U8G3XZQxZnsoCuj1WdyY'
-          },
-          body: JSON.stringify({
-            title: taskTitle,
-            status: 'TODO',
-            bodyV2: { markdown: taskBody }
-          })
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title: taskTitle, description: taskBody })
         });
 
         if (!resp.ok) throw new Error('Server error');
